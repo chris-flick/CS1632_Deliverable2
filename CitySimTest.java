@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
-
+import java.util.Random;
 import org.junit.*;
+import org.mockito.*;
 
 public class CitySimTest {
 
@@ -12,36 +13,135 @@ public class CitySimTest {
 		_c = new CitySim9005();
 	}
 
-	// checkValidArgument() should not allow a string to be an accepted command line argument.
-	// -2 should be returned to designate invalid type
+	// test that Hotel Location object added to cityMatrix[0][1] has correct name
 	@Test
-	public void checkInvalidStringParameter(){
-		String args[] = {"hello"};
-		int actualResult = Helpers.checkValidArgument(args);
-		int expectedResult = -2;
-
-		assertEquals(actualResult, expectedResult);
+	public void cityMatrixHotelTestName(){
+		assertEquals("Hotel", _c.cityMatrix[0][1].name);
 	}
 
-	// checkValidArgument should reject more than one argument.  Check return value with 2 arguments
-	// checkValidArgument should return -1 for more than one argument
+	// test that Hotel Location object added to cityMatrix[0][1] has reference to diner object in cityMatrix[0][2] through road
 	@Test
-	public void checkInvalidTwoParameters(){
-		String args[] = {"1", "2"};
-		int actualResult = Helpers.checkValidArgument(args);
-		int expectedResult = -1;
+	public void cityMatrixHotelTestRoad1(){
+		Location diner = _c.cityMatrix[0][2];
+		Location hotel = _c.cityMatrix[0][1];
 
-		assertEquals(actualResult, expectedResult);
+		// grab Fourth Ave road stored in Hotel object and access its EndLocation
+		Location dinerThroughHotel = hotel.roadsList.get(0).getEndLocation();
+
+		assertEquals(diner, dinerThroughHotel);
 	}
 
-	// testing to make sure that checkValildArgument() returns seed value
-	// if one integer is passed as parameter
+	// test that Hotel Location object added to cityMatrix[0][1] has reference to library object in cityMatrix[1][1] through road
 	@Test
-	public void checkValidCorrectResult(){
-		String args[] = {"64"};
-		int actualResult = Helpers.checkValidArgument(args);
-		int expectedResult = 64;
+	public void cityMatrixHotelTestRoad2(){
+		Location library = _c.cityMatrix[1][1];
+		Location hotel = _c.cityMatrix[0][1];
 
-		assertEquals(actualResult, expectedResult);
+		// grab bill st road stored in Hotel object and access its EndLocation
+		Location libraryThroughHotel = hotel.roadsList.get(1).getEndLocation();
+
+		assertEquals(library, libraryThroughHotel);
+	}
+
+	// test that Diner Location object added to cityMatrix[0][2] has correct name
+	@Test
+	public void cityMatrixDinerTestName(){
+		assertEquals("Diner", _c.cityMatrix[0][2].name);
+	}
+
+	// test that Diner Location object added to cityMatrix[0][2] has reference to philly object in cityMatrix[0][3] through road
+	@Test
+	public void cityMatrixDinerTestRoad1(){
+		Location philly = _c.cityMatrix[0][3];
+		Location diner = _c.cityMatrix[0][2];
+
+		// grab Fourth Ave road stored in Diner object and access its EndLocation
+		Location phillyFromDiner = diner.roadsList.get(0).getEndLocation();
+
+		assertEquals(philly, phillyFromDiner);
+	}
+
+	// test that Diner Location object added to cityMatrix[0][2] has reference to coffee object in cityMatrix[1][2] through road
+	@Test
+	public void cityMatrixDinerTestRoad2(){
+		Location coffee = _c.cityMatrix[1][2];
+		Location diner = _c.cityMatrix[0][2];
+
+		// grab phil st road stored in Diner object and access its EndLocation
+		Location coffeeFromDiner = diner.roadsList.get(1).getEndLocation();
+
+		assertEquals(coffee, coffeeFromDiner);
+	}
+
+	// test that library Location object added to cityMatrix[1][1] has correct name
+	@Test
+	public void cityMatrixLibraryTestName(){
+		assertEquals("Library", _c.cityMatrix[1][1].name);
+	}
+
+	// test that library Location object added to cityMatrix[1][1] has reference to cleveland object in cityMatrix[1][0] through road
+	@Test
+	public void cityMatrixLibraryTestRoad1(){
+		Location cleveland = _c.cityMatrix[1][0];
+		Location library = _c.cityMatrix[1][1];
+
+		// grab fifth Ave road stored in library object and access its EndLocation
+		Location clevelandFromLibrary = library.roadsList.get(0).getEndLocation();
+
+		assertEquals(cleveland, clevelandFromLibrary);
+	}
+
+	// test that Library Location object added to cityMatrix[1][1] has reference to hotel object in cityMatrix[0][1] through road
+	@Test
+	public void cityMatrixLibraryTestRoad2(){
+		Location hotel = _c.cityMatrix[0][1];
+		Location library = _c.cityMatrix[1][1];
+
+		// grab bill st road stored in library object and access its EndLocation
+		Location hotelFromLibrary = library.roadsList.get(1).getEndLocation();
+
+		assertEquals(hotel, hotelFromLibrary);
+	}
+
+	// test that coffee Location object added to cityMatrix[1][2] has correct name
+	@Test
+	public void cityMatrixCoffeeTestName(){
+		assertEquals("Coffee", _c.cityMatrix[1][2].name);
+	}
+
+	// test that Coffee Location object added to cityMatrix[1][2] has reference to library object in cityMatrix[1][1] through road
+	@Test
+	public void cityMatrixCoffeeTestRoad1(){
+		Location coffee = _c.cityMatrix[1][2];
+		Location library = _c.cityMatrix[1][1];
+
+		// grab fifth Ave road stored in coffee object and access its EndLocation
+		Location libraryFromCoffee = coffee.roadsList.get(0).getEndLocation();
+
+		assertEquals(library, libraryFromCoffee);
+	}
+
+	// test that Coffee Location object added to cityMatrix[1][2] has reference to diner object in cityMatrix[0][2] through road
+	@Test
+	public void cityMatrixCoffeeTestRoad2(){
+		Location coffee = _c.cityMatrix[1][2];
+		Location diner = _c.cityMatrix[0][2];
+
+		// grab phil st road stored in coffee object and access its EndLocation
+		Location dinerFromCoffee = coffee.roadsList.get(1).getEndLocation();
+
+		assertEquals(diner, dinerFromCoffee);
+	}
+
+	// test that chooseStartLocation() returns correct object
+	// should return location at cityMatrix[1][1]
+	@Test
+	public void chooseStartLocationTest(){
+		Random rand = Mockito.mock(Random.class);
+
+		Mockito.when(rand.nextInt()).thenReturn(0);
+		Location loc = _c.chooseStartLocation(rand);
+
+		assertEquals(loc, _c.cityMatrix[1][1]);
 	}
 }

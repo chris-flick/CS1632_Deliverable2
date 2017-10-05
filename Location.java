@@ -2,21 +2,31 @@ import java.util.ArrayList;
 
 public class Location {
 	public String name;
-	public ArrayList<Road> roads;
+	public ArrayList<Road> roadsList;
 	public boolean isEnd;
 
+	// instantiate Location object
 	public Location(String locationName, boolean end){
 		name = locationName;
 		isEnd = end;
-		roads = new ArrayList<Road>();
+		roadsList = new ArrayList<Road>();
 	}
 
+	// add road to arraylist
 	public int addRoad(Road road){
-		if(road == null)
+		if(road == null){
 			return -1;
+		}
 
-		roads.add(road);
+		roadsList.add(road);
 
 		return 1;
+	}
+
+	// random integer will be passed through to randomly select road.
+	// return the Location found at the end of the road
+	public Location getNextLocation(int randomIndex){
+		Road road = roadsList.get(randomIndex);
+		return road.getEndLocation();
 	}
 }

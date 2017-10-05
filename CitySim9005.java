@@ -1,9 +1,11 @@
+import java.util.Random;
+
 public class CitySim9005{
 
 	public Location cityMatrix[][];
 
 	public CitySim9005(){
-		cityMatrix = new Location[2][3];
+		cityMatrix = new Location[2][4];
 
 		// create all possible locations
 		Location hotel = new Location("Hotel", false);
@@ -41,13 +43,25 @@ public class CitySim9005{
 		cityMatrix[0][0] = cleveland;
 		cityMatrix[0][1] = hotel;
 		cityMatrix[0][2] = diner;
+		cityMatrix[0][3] = philly;
 		cityMatrix[1][0] = cleveland;
 		cityMatrix[1][1] = library;
 		cityMatrix[1][2] = coffee;
+		cityMatrix[1][3] = philly;
+
 	}
 
-	public void runCitySim(){
-		
+	public void runCitySim(Random rand){
+		Location location = chooseStartLocation(rand);
+
+		while(true){
+
+		}
+	}
+
+	// randomly return one of the 4 possible locations: hotel, diner, coffee, library
+	public Location chooseStartLocation(Random rand){
+		return cityMatrix[rand.nextInt(2) + 1][rand.nextInt(2) + 1];
 	}
 	
 }

@@ -7,5 +7,8 @@ public class Road {
 		endLocation = location;
 	}
 
+	public Location getEndLocation(){
+		return endLocation;
+	}
 
 }
