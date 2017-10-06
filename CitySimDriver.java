@@ -17,7 +17,10 @@ public class CitySimDriver{
 		Random rand = new Random(seed);
 
 		CitySim9005 cs = new CitySim9005();
-		cs.runCitySim(rand);
+
+		// starting for loop at i = 1 to make first driver equals Driver 1
+		for (int i = 1; i < 6; i++)
+			cs.runCitySim(rand, i);
 	}
 }
 

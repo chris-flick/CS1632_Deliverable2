@@ -79,4 +79,23 @@ public class LocationTest {
 
 		assertEquals(loc2, loc.getNextLocation(1));
 	}
+
+	//test that a road gets returned
+	@Test
+	public void getNextRoadTest(){
+		Location loc = new Location("TestName", false);
+
+		Road r1 = Mockito.mock(Road.class);
+		Road r2 = Mockito.mock(Road.class);
+		Road r3 = Mockito.mock(Road.class);
+
+		// r1 should be at index 0
+		loc.addRoad(r1);
+		// r2 should be at index 1
+		loc.addRoad(r2);
+		// r3 should be at index 2
+		loc.addRoad(r3);
+
+		assertEquals(r2, loc.getNextRoad(1));
+	}
 }

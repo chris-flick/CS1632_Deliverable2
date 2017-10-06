@@ -26,7 +26,13 @@ public class Location {
 	// random integer will be passed through to randomly select road.
 	// return the Location found at the end of the road
 	public Location getNextLocation(int randomIndex){
-		Road road = roadsList.get(randomIndex);
+		Road road = getNextRoad(randomIndex);
 		return road.getEndLocation();
+	}
+
+	// random integer will be passed through to randomly select road.
+	// return the road
+	public Road getNextRoad(int randomIndex){
+		return roadsList.get(randomIndex);
 	}
 }

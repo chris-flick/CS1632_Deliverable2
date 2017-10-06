@@ -51,17 +51,48 @@ public class CitySim9005{
 
 	}
 
-	public void runCitySim(Random rand){
-		Location location = chooseStartLocation(rand);
+	public void runCitySim(Random rand, int driver){
+		// grab starting location
+		Location currentLocation = chooseStartLocation(rand);
 
 		while(true){
+			// grab next road to travel
+			Road nextRoad = currentLocation.getNextRoad(rand.nextInt(2));
+			// grab location at the end of next road
+			Location nextLocation = nextRoad.getEndLocation();
 
+			// if the next location is philly in [0][3] or cleveland in [1][0], then exit loop to break simulation
+			if (nextLocation == cityMatrix[0][3] || nextLocation == cityMatrix[1][0]){
+				System.out.println("Driver " + driver + " heading from " + currentLocation.name + " to Outside City via "
+			 + nextRoad.name + ".");
+
+				currentLocation = nextLocation;
+				break;
+			}
+
+			System.out.println("Driver " + driver + " heading from " + currentLocation.name + " to " + nextLocation.name + " via "
+			 + nextRoad.name + ".");
+
+			// driver is now at next location
+			currentLocation = nextLocation;
 		}
+
+		System.out.println("Driver " + driver + " has gone to " + currentLocation.name + "!");
 	}
 
 	// randomly return one of the 4 possible locations: hotel, diner, coffee, library
+	// possible start locations are [0][1], [0][2], [1][1], [1][2]
+	// row ranges from 0-1 so use nextInt(2)
+	// column ranges from 1-2 so use nextInt(2) + 1
 	public Location chooseStartLocation(Random rand){
-		return cityMatrix[rand.nextInt(2) + 1][rand.nextInt(2) + 1];
+		return cityMatrix[rand.nextInt(2)][rand.nextInt(2) + 1];
 	}
+
+/*	// randomly return one of the roads that are contained within Location's roadList
+	public Location getNextLocation(Random rand, Location currentLocation){
+		int randomIndex = rand.nextInt(2);
+
+		return currentLocation.getNextLocation(randomIndex);
+	}*/
 	
 }
