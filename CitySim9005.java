@@ -78,6 +78,7 @@ public class CitySim9005{
 		}
 
 		System.out.println("Driver " + driver + " has gone to " + currentLocation.name + "!");
+		System.out.println("-----");
 	}
 
 	// randomly return one of the 4 possible locations: hotel, diner, coffee, library
@@ -88,11 +89,5 @@ public class CitySim9005{
 		return cityMatrix[rand.nextInt(2)][rand.nextInt(2) + 1];
 	}
 
-/*	// randomly return one of the roads that are contained within Location's roadList
-	public Location getNextLocation(Random rand, Location currentLocation){
-		int randomIndex = rand.nextInt(2);
-
-		return currentLocation.getNextLocation(randomIndex);
-	}*/
 	
 }

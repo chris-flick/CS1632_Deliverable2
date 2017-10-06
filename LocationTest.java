@@ -50,6 +50,7 @@ public class LocationTest {
 
 
 	// test that correct location gets returned from arraylist given an index
+	// create mock roads and give them each an endlocation
 	@Test
 	public void getNextLocationTest(){
 		Location loc = new Location("testName", false);
@@ -63,11 +64,11 @@ public class LocationTest {
 		Road r2 = Mockito.mock(Road.class);
 		Road r3 = Mockito.mock(Road.class);
 
-		// r1 should be at index 0
+		// road1 should be at index 0
 		loc.addRoad(r1);
-		// r2 should be at index 1
+		// road2 should be at index 1
 		loc.addRoad(r2);
-		// r3 should be at index 2
+		// road3 should be at index 2
 		loc.addRoad(r3);
 
 		// EndLocation of r1 will equal loc1
@@ -77,10 +78,13 @@ public class LocationTest {
 		// EndLocation of r2 will equal loc3
 		Mockito.when(r3.getEndLocation()).thenReturn(loc3);
 
+		// loc.getNextLocation(1) should return the endLocation of the road at index 1
 		assertEquals(loc2, loc.getNextLocation(1));
 	}
 
-	//test that a road gets returned
+	//test that the correct road object gets returned
+	// add three roads to a location object and request the one at index 1
+	// assert that when calling getNextRoad(1) that the road at index 1 is returned
 	@Test
 	public void getNextRoadTest(){
 		Location loc = new Location("TestName", false);

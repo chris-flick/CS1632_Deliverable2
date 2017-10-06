@@ -134,7 +134,7 @@ public class CitySimTest {
 	}
 
 	// test that chooseStartLocation() returns correct object
-	// should return location at cityMatrix[1][1]
+	// should return location at cityMatrix[0][1]
 	@Test
 	public void chooseStartLocationTest(){
 		Random rand = Mockito.mock(Random.class);
@@ -145,24 +145,16 @@ public class CitySimTest {
 		assertEquals(loc, _c.cityMatrix[0][1]);
 	}
 
-	// test that getNextLocation() returns correct object
-	// rand object should return 1 when calling nextInt() which will cause the Location diner object to grab the location 
-	// in index 1 of the roadsList which is the coffee object
-/*	@Test
-	public void getNextLocationTest(){
-
+	// test that chooseStartLocation() returns correct object
+	// should return location at cityMatrix[1][2]
+	@Test
+	public void chooseStartLocationTest2(){
 		Random rand = Mockito.mock(Random.class);
+
 		Mockito.when(rand.nextInt(2)).thenReturn(1);
+		Location loc = _c.chooseStartLocation(rand);
 
-		// diner object
-		Location diner = Mockito.mock(Location.class);
-		// index 0 is philly
-		Mockito.when(diner.getNextLocation(0)).thenReturn(_c.cityMatrix[0][3]);
-		// index 1 is coffee
-		Mockito.when(diner.getNextLocation(1)).thenReturn(_c.cityMatrix[1][2]);
+		assertEquals(loc, _c.cityMatrix[1][2]);
+	}
 
-		Location newLocation = _c.getNextLocation(rand, diner);
-
-		assertEquals(_c.cityMatrix[1][2], newLocation);
-	}*/
 }

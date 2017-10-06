@@ -4,7 +4,7 @@ import org.junit.*;
 
 public class RoadTest {
 
-	// test that the road name gets instantiated correctly
+	// test that the road name gets instantiated correctly 
 	@Test
 	public void createRoadTest(){
 		Location loc = Mockito.mock(Location.class);
